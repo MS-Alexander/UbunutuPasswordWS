@@ -164,7 +164,30 @@
             ]
           }
         }       
+      },
+      {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/installcustomscript')]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/MS-Alexander/UbunutuPasswordWS/master/ConfigWS.sh"
+          ]
+        },
+         "protectedSettings": {
+              "commandToExecute": "sudo sh ConfigWS.sh"
+            }
       }
+    }
       
     ],
     "outputs": {
